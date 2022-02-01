@@ -9,7 +9,3 @@ class Question
     @correct_answer = @num1 + @num2
   end
 end
-
-# quiza = Question.new
-# puts quiza.question
-# puts quiza.correct_answer

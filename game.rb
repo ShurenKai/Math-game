@@ -35,8 +35,8 @@ class Game
       puts "Let the games begin!"
       set_current
       while @current_player.lives != 0 do
-        set_current
         current_round
+        set_current
       end
     else
       puts "You have a game currently running"
@@ -46,11 +46,10 @@ class Game
   def current_round
     puts "#{@inquitioner.name}: #{@current_question.question}"
     @current_player.player_answer = gets.chomp
-    
+    @turns += 1
     if @current_player.player_answer.to_i != @current_question.correct_answer.to_i
       @current_player.lives -= 1
       @current_question = Question.new
-      @turns += 1
       puts "#{@inquitioner.name}: Ah, that was incorrect, RIP"
     else
       puts "#{@inquitioner.name}: Hey, you got it right!" 
@@ -60,17 +59,11 @@ class Game
       puts "-----GAME OVER-----"
       puts "Good bye! Thanks for playing! :D "
       @game_running = false
+      puts " #{@inquitioner.name} wins with a score of #{@inquitioner.lives.to_i}/3"
+    else
       puts "P1: #{player_1.lives.to_i}/3 vs P2: #{player_2.lives.to_i}/3"
-    else 
-      puts "P1: #{player_1.lives.to_i}/3 vs P2: #{player_2.lives.to_i}/3"
-      @turns += 1
       puts "-----NEW TURN-----"
       @current_question = Question.new
-      # puts "#{@inquitioner.name}: #{@current_question.question}"
     end
   end
 end
-
-game1 = Game.new
-# puts game1.current_question.question
-# puts game1.give_q
